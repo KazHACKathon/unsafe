@@ -1,8 +1,7 @@
 from flask import Flask
-import sqlalchemy
 from flask_login import LoginManager
 
-from models import db, Users,Stacks
+from models import db, Users
 from index import index
 from login import login
 from logout import logout

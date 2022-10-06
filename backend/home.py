@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template
-from flask_login import LoginManager, login_required, current_user
+from flask_login import LoginManager, login_required
 
-from models import db, Users,Stacks
 home = Blueprint('home', __name__, template_folder='../frontend')
 login_manager = LoginManager()
 login_manager.init_app(home)

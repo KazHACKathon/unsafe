@@ -1,22 +1,20 @@
-import email
+import os
 import smtplib
 
-def notificator(subject,text,where_to_mail):
-    s = smtplib.SMTP_SSL('smtp.mail.ru',465)
-    print("starting")
+import dotenv
 
-    email = 'notificator.cve@bk.ru'
-    passwd = "pass"
+class Notificator():
+    def __init__(self) -> None:
+        self.s = smtplib.SMTP_SSL('smtp.mail.ru',465)
+        dotenv.load_dotenv()
+        self.email = os.getenv('cve_mail')
+        self.password = os.getenv('cve_mail_password')
+        self.s.login(f"{self.email}", f"{self.password}")
 
-    print("logging in")
-    s.login(f"{email}", f"{passwd}")
+    def notificator(self,subject,text,where_to_mail):
+        msg = 'Subject: {}\n\n{}'.format(subject,text)
+        self.s.sendmail(f"{self.email}", where_to_mail, msg)
 
-    msg = 'Subject: {}\n\n{}'.format(subject,text)
 
-    print("sending mail")
-    s.sendmail(f"{email}", where_to_mail, msg)
-    print("sent")
-    s.quit()
-
-if __name__ == "__main__":
-    notificator("New CVE.","Hello dear user. New CVE is now available. Please undertake necessary remediation regarding your product!","amitullayev@gmail.com")
+no = Notificator()
+no.notificator('CVE-2022-23123', 'some text with info', 'orazbaevdev@gmail.com')
