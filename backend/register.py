@@ -3,7 +3,7 @@ from flask_login import LoginManager
 from werkzeug.security import generate_password_hash
 import sqlalchemy
 from models import db, Users,Stacks
-
+from leakcheck import cmd_passwordSearch
 register = Blueprint('register', __name__, template_folder='../frontend')
 login_manager = LoginManager()
 login_manager.init_app(register)
@@ -14,6 +14,8 @@ def show():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
+        if cmd_passwordSearch(password):
+            return redirect(url_for('register.show')+'?error=leaked password!')
         confirm_password = request.form['confirm-password']
 
         if username and email and password and confirm_password:
