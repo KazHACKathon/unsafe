@@ -1,8 +1,8 @@
 from flask import Blueprint, url_for, render_template, redirect, request
 from flask_login import LoginManager
 from werkzeug.security import generate_password_hash
-
-from models import db, Users
+import sqlalchemy
+from models import db, Users,Stacks
 
 register = Blueprint('register', __name__, template_folder='../frontend')
 login_manager = LoginManager()
@@ -21,12 +21,11 @@ def show():
                 hashed_password = generate_password_hash(
                     password, method='sha256')
                 try:
-                    new_user = Users(
+                    new_user = Users(    
                         username=username,
                         email=email,
                         password=hashed_password,
                     )
-
                     db.session.add(new_user)
                     db.session.commit()
                 except sqlalchemy.exc.IntegrityError:

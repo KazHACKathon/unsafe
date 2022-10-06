@@ -24,6 +24,8 @@ app.register_blueprint(login)
 app.register_blueprint(logout)
 app.register_blueprint(register)
 app.register_blueprint(home)
+app.register_blueprint(stacker)
+db.create_all()
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(int(user_id))

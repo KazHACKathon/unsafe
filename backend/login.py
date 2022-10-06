@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, render_template, redirect, request
+from flask import Blueprint, session, url_for, render_template, redirect, request
 from flask_login import LoginManager, login_user
 from werkzeug.security import check_password_hash
 
@@ -15,14 +15,17 @@ def show():
         password = request.form['password']
 
         user = Users.query.filter_by(username=username).first()
-
+        
         if user:
             if check_password_hash(user.password, password):
                 login_user(user)
+                session['user_id'] = username
                 return redirect(url_for('home.show'))
             else:
                 return redirect(url_for('login.show') + '?error=incorrect-password')
         else:
             return redirect(url_for('login.show') + '?error=user-not-found')
+        
+        
     else:
         return render_template('login.html')
