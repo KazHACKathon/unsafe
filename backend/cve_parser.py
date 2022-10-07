@@ -8,10 +8,7 @@ def parser(keywords: list) -> list:
         res = r.get(f'https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword={keyword}')
         soup = BeautifulSoup(res.text, 'html.parser')
         table = soup.find('div', {"id": "TableWithRules"})
-        cve_list = []
         cves = table.find_all('td')
         cve = [cves[0].text, cves[1].text]
-        cve_list.append(cve)
-        result.append(cve_list)
+        result.append(cve)
     return result
-

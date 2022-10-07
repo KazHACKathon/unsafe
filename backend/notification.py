@@ -2,7 +2,6 @@ import os
 import smtplib
 
 import dotenv
-
 class Notificator():
     def __init__(self) -> None:
         self.s = smtplib.SMTP_SSL('smtp.mail.ru',465)
@@ -14,7 +13,3 @@ class Notificator():
     def notificator(self,subject,text,where_to_mail):
         msg = 'Subject: {}\n\n{}'.format(subject,text)
         self.s.sendmail(f"{self.email}", where_to_mail, msg)
-
-
-no = Notificator()
-no.notificator('CVE-2022-23123', 'some text with info', 'orazbaevdev@gmail.com')

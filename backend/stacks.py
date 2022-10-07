@@ -1,5 +1,11 @@
-from flask import Blueprint, session, request
-from flask_login import login_required
+from inspect import stack
+from re import I
+from flask import Blueprint, session, url_for, render_template, redirect, request
+from flask_login import current_user, login_required
+from flask_login import LoginManager
+from matplotlib import use
+from pymysql import NULL
+import sqlalchemy
 from models import db, Users,Stacks
 
 
@@ -30,9 +36,6 @@ def show():
         x = stack_to_append[0]
         user.following.append(x)
         db.session.commit()
-        print(user)
-        print(x)
-            
         return ""
     else:
         user_name = session['user_id']
