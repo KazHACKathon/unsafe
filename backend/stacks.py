@@ -9,7 +9,7 @@ import sqlalchemy
 from models import db, Users,Stacks
 
 
-stacker = Blueprint('stacks', __name__, template_folder='../frontend')
+stacker = Blueprint('stacks', __name__, template_folder='./static')
 
 @stacker.route('/stack',methods=['GET', 'POST'])
 @login_required
@@ -44,7 +44,7 @@ def show():
         for els in new_user[0].following:
             temp.append(els.stack_name)
 
-        return " ".join(temp)
+        return render_template('templates/subscribe.html')
 
 # @stacker.route('/stack',methods=['POST'])
 # @login_required
@@ -70,3 +70,4 @@ def delete():
     user.following.remove(x)
     db.session.commit()
     return "Successfull delete"
+

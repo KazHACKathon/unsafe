@@ -12,7 +12,7 @@ from home import home
 from stacks import stacker
 from apscheduler.schedulers.background import BackgroundScheduler
 
-app = Flask(__name__, static_folder='../frontend/static')
+app = Flask(__name__, static_folder='./static')
 
 app.config['SECRET_KEY'] = 'secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://aker:reka@localhost/cve'

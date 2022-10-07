@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash
 import sqlalchemy
 from models import db, Users,Stacks
 from leakcheck import cmd_passwordSearch
-register = Blueprint('register', __name__, template_folder='../frontend')
+register = Blueprint('register', __name__, template_folder='./static')
 login_manager = LoginManager()
 login_manager.init_app(register)
 
@@ -37,4 +37,4 @@ def show():
         else:
             return redirect(url_for('register.show') + '?error=missing-fields')
     else:
-        return render_template('register.html')
+        return render_template('templates/register.html')
